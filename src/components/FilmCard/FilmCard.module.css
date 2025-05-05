@@ -1,0 +1,45 @@
+.filmCard {
+    flex: 0 0 calc(33.333% - 32px);
+    margin: 16px;
+    transition: all 0.3s ease;
+    min-width: 280px;
+    max-width: calc(33.333% - 32px);
+    box-sizing: border-box;
+}
+
+.filmCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.poster {
+    height: 400px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.title {
+    margin: 0 !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.1rem !important;
+}
+
+@media (max-width: 1200px) {
+    .filmCard {
+        flex: 0 0 calc(50% - 32px);
+        max-width: calc(50% - 32px);
+    }
+}
+
+@media (max-width: 768px) {
+    .filmCard {
+        flex: 0 0 calc(100% - 32px);
+        max-width: calc(100% - 32px);
+    }
+    
+    .poster {
+        height: 350px;
+    }
+} 

@@ -1,7 +1,13 @@
-import "./App.css"
+import { RouterProvider } from "react-router"
+import router from "./Routers"
+// import ProtectedRoute from "./components/Layout/ProtectedRout";
 
-export const App = () => (
-  <div>
-    
-  </div>
-)
+function App() {
+  return (
+    <>
+        <RouterProvider router={router} />
+    </>
+  )
+}
+
+export default App;
