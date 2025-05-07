@@ -4,7 +4,6 @@ import LogInPage from "./components/LogInPage/LogInPage";
 import RegisterPage from "./components/RegisterPage/RegisterPage";
 import HomePage from "./components/Home/HomePage";
 import Favorites from "./components/Favorites/Favorites";
-import Account from "./components/Account/Account";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import FilmGrid from "./components/FilmGrid/FilmGrid";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
@@ -29,10 +28,6 @@ const router = createBrowserRouter([
             {
                 path: "/favorites",
                 element: <Favorites />,
-            },
-            {
-                path: "/account",
-                element: <Account />,
             },
             {
                 path: "/movie/:id",

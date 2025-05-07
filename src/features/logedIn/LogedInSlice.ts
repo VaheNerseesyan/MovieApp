@@ -31,20 +31,6 @@ const authSlice = createAppSlice({
       localStorage.setItem("user_info", JSON.stringify(action.payload));
       state.user = action.payload;
     },
-    // addFavorite: (state, action) => {
-    //   if (state.favorites.includes(action.payload.id)) {
-    //     state.favorites = state.favorites.filter(id => id !== action.payload.id);
-    //   } else {
-    //     state.favorites.push({
-    //       id: action.payload.id,
-    //       title: action.payload.title,
-    //       poster_path: action.payload.poster_path,
-    //       overview: action.payload.overview,
-    //       vote_average: action.payload.vote_average,
-    //       release_date: action.payload.release_date
-    //     });
-    //   }
-    // },
     removeFavorite: (state, action) => {
       state.favorites = state.favorites.filter(id => id !== action.payload.id);
     },

@@ -3,6 +3,7 @@ import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
+import { createSelector } from '@reduxjs/toolkit';
 import { addToFavorites, removeFromFavorites } from '../../features/favorites/favoritesSlice';
 
 interface Movie {
@@ -14,24 +15,37 @@ interface Movie {
     release_date: string;
 }
 
+const selectUserFavorites = createSelector(
+    [(state: RootState) => state.favorites.favoritesByUser, 
+     (state: RootState) => state.auth.user?.email],
+    (favoritesByUser, userEmail) => favoritesByUser[userEmail || ''] || []
+);
+
 function FilmCard({ title, poster_path, overview, vote_average, release_date, id }: Movie) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const favorites = useSelector((state: RootState) => state.favorites);
-    const isFavorite = favorites.favorites.some((fav: Movie) => fav.id === id);
+    const userFavorites = useSelector(selectUserFavorites);
+    const user = useSelector((state: RootState) => state.auth.user);
+    const isFavorite = userFavorites.some((fav: Movie) => fav.id === id);
 
     const handleFavoriteClick = (e: React.MouseEvent) => {
         e.stopPropagation();
         if (isFavorite) {
-            dispatch(removeFromFavorites(id));
+            dispatch(removeFromFavorites({
+                userEmail: user?.email || '',
+                movieId: id
+            }));
         } else {
             dispatch(addToFavorites({
-                id,
-                title,
-                poster_path,
-                overview,
-                vote_average,
-                release_date
+                userEmail: user?.email || '',
+                movie: {
+                    id: id,
+                    title: title,
+                    poster_path: poster_path,
+                    overview: overview,
+                    vote_average: vote_average,
+                    release_date: release_date
+                }
             }));
         }
     };
@@ -39,7 +53,7 @@ function FilmCard({ title, poster_path, overview, vote_average, release_date, id
     return (
         <Card
             hoverable
-            id = {id}
+            id={id}
             style={{ width: '320px', display: 'flex', flexWrap: 'wrap', flexDirection: 'column', alignItems: 'center' }}
             cover={
                 <img
@@ -50,9 +64,9 @@ function FilmCard({ title, poster_path, overview, vote_average, release_date, id
                 />
             }
             actions={[
-                <Button 
+                <Button
                     key="favorite"
-                    type="text" 
+                    type="text"
                     icon={isFavorite ? <HeartFilled style={{ color: '#ff4d4f' }} /> : <HeartOutlined />}
                     onClick={handleFavoriteClick}
                 >

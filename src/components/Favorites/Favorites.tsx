@@ -13,9 +13,9 @@ interface Movie {
 }
 
 const Favorites = () => {
-    const favorites = useSelector((state: RootState) => state.favorites.favorites);
-
-    if (!favorites || favorites.length === 0) {
+    const favorites = useSelector((state: RootState) => state.favorites.favoritesByUser);
+    const user = useSelector((state: RootState) => state.auth.user);
+    if (favorites[user?.email || ''] === undefined) {
         return (
             <div style={{
                 display: 'flex',
@@ -41,7 +41,7 @@ const Favorites = () => {
                 gap: '24px'
             }}>
                 <Row justify="center" style={{ justifyContent: 'space-evenly', gap: '42px' }}>
-                    {favorites.map((favorite: Movie) => (
+                    {favorites[user?.email || ''].map((favorite: Movie) => (
                         <FilmCard
                             key={favorite.id}
                             title={favorite.title}

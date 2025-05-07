@@ -10,24 +10,32 @@ interface Movie {
 }
 
 interface FavoritesState {
-    favorites: Movie[];
+    favoritesByUser: {
+        [userEmail: string]: Movie[];
+    };
 }
 
 const initialState: FavoritesState = {
-    favorites: []
+    favoritesByUser: {}
 };
 
 const favoritesSlice = createSlice({
     name: 'favorites',
     initialState,
     reducers: {
-        addToFavorites: (state, action: PayloadAction<Movie>) => {
-            if (!state.favorites.some(movie => movie.id === action.payload.id)) {
-                state.favorites.push(action.payload);
+        addToFavorites: (state, action: PayloadAction<{userEmail: string; movie: Movie}>) => {
+            if (!state.favoritesByUser[action.payload.userEmail]) {
+                state.favoritesByUser[action.payload.userEmail] = [];
+            }
+            if (!state.favoritesByUser[action.payload.userEmail].some(movie => movie.id === action.payload.movie.id)) {
+                state.favoritesByUser[action.payload.userEmail].push(action.payload.movie);
             }
         },
-        removeFromFavorites: (state, action: PayloadAction<string>) => {
-            state.favorites = state.favorites.filter(movie => movie.id !== action.payload);
+        removeFromFavorites: (state, action: PayloadAction<{userEmail: string; movieId: string}>) => {
+            if (state.favoritesByUser[action.payload.userEmail]) {
+                state.favoritesByUser[action.payload.userEmail] = state.favoritesByUser[action.payload.userEmail]
+                    .filter(movie => movie.id !== action.payload.movieId);
+            }
         }
     }
 });
