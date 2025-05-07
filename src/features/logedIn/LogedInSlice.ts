@@ -6,11 +6,13 @@ interface AuthState {
     email: string | null;
     uid: string | null;
   } | null;
+  favorites: string[];
 }
 
 const initialState: AuthState = {
   isLoggedIn: localStorage.getItem("user_info") ? true : false,
   user: localStorage.getItem("user_info") ? JSON.parse(localStorage.getItem("user_info") || "{}") : null,
+  favorites: [],
 }
 
 const authSlice = createAppSlice({
@@ -21,6 +23,7 @@ const authSlice = createAppSlice({
       state.isLoggedIn = true;
       localStorage.setItem("user_info", JSON.stringify(action.payload));
       state.user = action.payload;
+      state.favorites = []; 
     },
     logout: state => {
       state.isLoggedIn = false;

@@ -46,43 +46,47 @@ function LoginPage() {
             minHeight: '100vh',
             background: '#858585'
         }}>
-            <Card style={{ width: 500}}>
+            <Card style={{ width: 500 }}>
                 <h1 style={{ textAlign: 'center' }}>Login</h1>
                 <form onSubmit={handleLogIn}>
-                        <div>
-                            <h4>Username</h4>
-                            <Input
-                                type="text"
-                                placeholder="Enter your username"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                                required
-                                autoComplete="username"
-                            />
-                        </div>
-                        <div>
-                            <h4>Password</h4>
-                            <Input.Password
-                                placeholder="Enter your password"
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                                autoComplete="current-password"
-                            />
-                        </div>
-                        <br/>
-                        <Button
-                            type="primary"
-                            htmlType="submit"
-                            loading={loading}
-                            block
-                        >
-                            Login
-                        </Button>
-                        <br/>
-                        <h4>Don't have an account?{' '}
-                        <NavLink to="/registerPage">Register here</NavLink></h4>
-                        <br/>
+                    <div>
+                        <h4>Username</h4>
+                        <Input
+                            type="text"
+                            placeholder="Enter your username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                            autoComplete="username"
+                        />
+                    </div>
+                    <div>
+                        <h4>Password</h4>
+                        <Input.Password
+                            placeholder="Enter your password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                            autoComplete="current-password"
+                        />
+                    </div>
+                    <br />
+                    <Button
+                        type="primary"
+                        htmlType="submit"
+                        loading={loading}
+                        block
+                    >
+                        Login
+                    </Button>
+                    <br />
+                    <h4>Don't have an account? 
+                        <Button 
+                        type="link" 
+                        onClick={() => navigate("/register")}
+                        >Register
+                        </Button></h4>
+                    <br />
                 </form>
             </Card>
         </div>

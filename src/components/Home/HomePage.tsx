@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { MovieApi, getFilmByTitle } from "../api/MovieApi";
+import { MovieApi } from "../api/MovieApi";
 import FilmCard from "../FilmCard/FilmCard";
 import { Pagination, Row } from "antd";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Search from "antd/es/input/Search";
 
 
@@ -11,8 +11,6 @@ function HomePage() {
     const [currentPage, setCurrentPage] = useState(useParams().pageid || 1);
     const navigate = useNavigate();
     const { pageid } = useParams();
-    const [search, setSearch] = useState(useParams().title);
-    const location = useLocation();
 
     useEffect(() => {
         if (isNaN(Number(pageid))) {
@@ -28,10 +26,6 @@ function HomePage() {
         navigate(`/page/${pageid}`);
     }
 
-    // useEffect(() => {
-    //     navigate(`/page/${currentPage}`);
-    // }, [currentPage])
-
     useEffect(() => {
         window.scrollTo({
             top: 0,
@@ -41,14 +35,7 @@ function HomePage() {
 
     useEffect(() => {
         MovieApi(Number(currentPage)).then(res => setMovies(res));
-        // navigate(`/page/${currentPage}`);
     }, [currentPage]);
-
-    // useEffect(() => {
-    //     if (!location.pathname.includes('/search/')) {
-    //         setSearch('');
-    //     }
-    // }, [location.pathname]);
 
     return (
         <>

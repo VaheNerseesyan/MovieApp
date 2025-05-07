@@ -8,7 +8,7 @@ import { Dropdown, Space } from 'antd';
 import { logout } from "../../features/logedIn/LogedInSlice";
 
 const Layout = () => {
-    const { isLoggedIn, user } = useSelector((state: RootState) => state.auth);
+    const { user } = useSelector((state: RootState) => state.auth);
     const dispatch = useDispatch(); 
 
     const items: MenuProps['items'] = [
