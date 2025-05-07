@@ -1,14 +1,23 @@
-import { useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { RootState } from "../../app/store";
+// import { Navigate, useLocation } from 'react-router-dom';
+// import { useSelector } from 'react-redux';
+// import { RootState } from '../../app/store';
+// import { hasTokens } from '../../utils/tokenManager';
 
-const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-    const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
-    const location = useLocation();
+// interface ProtectedRouteProps {
+//     children: React.ReactNode;
+// }
 
-    if (!isLoggedIn && !['/', '/register'].includes(location.pathname))  {
-        return <Navigate to="/login" state={{ from: location }} replace />;
-    }
-    return children;
-};
+// const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
+//     const location = useLocation();
+//     const isAuthenticated = useSelector((state: RootState) => state.auth.isLoggedIn);
+//     const hasValidTokens = hasTokens();
+
+//     if (!isAuthenticated && !hasValidTokens) {
+//         // Redirect to login page but save the attempted url
+//         return <Navigate to="/" state={{ from: location }} replace />;
+//     }
+
+//     return <>{children}</>;
+// };
+
+// export default ProtectedRoute;

@@ -1,22 +1,31 @@
 import { createAppSlice } from "../../app/createAppSlice"
 
 interface AuthState {
-  isLoggedIn: boolean
+  isLoggedIn: boolean;
+  user: {
+    email: string | null;
+    uid: string | null;
+  } | null;
 }
 
 const initialState: AuthState = {
-  isLoggedIn: false,
+  isLoggedIn: localStorage.getItem("user_info") ? true : false,
+  user: localStorage.getItem("user_info") ? JSON.parse(localStorage.getItem("user_info") || "{}") : null,
 }
 
 const authSlice = createAppSlice({
   name: "auth",
   initialState,
   reducers: {
-    login: state => {
-      state.isLoggedIn = true
+    login: (state, action) => {
+      state.isLoggedIn = true;
+      localStorage.setItem("user_info", JSON.stringify(action.payload));
+      state.user = action.payload;
     },
     logout: state => {
-      state.isLoggedIn = false
+      state.isLoggedIn = false;
+      state.user = null;
+      localStorage.removeItem("user_info");
     },
   },
 })

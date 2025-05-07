@@ -1,20 +1,31 @@
 import { auth } from "../../firebase";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { NavLink, useNavigate } from "react-router-dom";
-
+import { RootState } from "../../app/store";
+import { useSelector } from "react-redux";
 function RegisterPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const { isLoggedIn } = useSelector((state: RootState) => state.auth);
+
+    // useEffect(() => {
+    //     if (isLoggedIn) {
+    //         alert("You are already logged in");
+    //         navigate("/");
+    //     }
+    //     console.log(isLoggedIn)
+    // }, [isLoggedIn]);
 
     const handleRegister = async () => {
         try {
             const email = `${username.toLowerCase()}@gmail.com`;
             await createUserWithEmailAndPassword(auth, email, password);
             alert("User registered successfully");
-            navigate("/");
+            navigate("/login");
         } catch (error) {
+            alert("Email already in use");
             console.error("Error registering:", error);
         }
     };

@@ -13,11 +13,9 @@ if (container) {
   const root = createRoot(container)
 
   root.render(
-    <StrictMode>
       <Provider store={store}>
         <RouterProvider router={router} />
       </Provider>
-    </StrictMode>,
   )
 } else {
   throw new Error(

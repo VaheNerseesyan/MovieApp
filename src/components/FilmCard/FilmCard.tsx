@@ -1,6 +1,6 @@
-import { Card, Rate, Button, Typography, Space } from 'antd';
+import { Card, Typography, Button, Space, Rate } from 'antd';
 import { HeartOutlined } from '@ant-design/icons';
-import styles from './FilmCard.module.css';
+import { useNavigate } from 'react-router-dom';
 
 interface FilmCardProps {
     title: string;
@@ -8,44 +8,52 @@ interface FilmCardProps {
     overview: string;
     vote_average: number;
     release_date: string;
+    id: string;
 }
 
-function FilmCard({ title, poster_path, overview, vote_average, release_date }: FilmCardProps) {
+function FilmCard({ title, poster_path, overview, vote_average, release_date, id }: FilmCardProps) {
+    const navigate = useNavigate();
+
+    const handleFavoriteClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        console.log('Add to favorites');
+    };
+
     return (
         <Card
             hoverable
-            className={styles.filmCard}
+            onClick={() => navigate(`/movie/${id}`)}
+            style={{ width: '320px', display: 'flex', flexWrap: 'wrap', flexDirection: 'column', alignItems: 'center' }}
             cover={
-                <div className={styles.posterContainer}>
-                    <img
-                        alt={title}
-                        src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
-                        className={styles.poster}
-                    />
-                </div>
+                <img
+                    alt={title}
+                    src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+                    style={{ height: '100%', objectFit: 'cover', width: '320px' }}
+                />
+                
             }
             actions={[
                 <Button 
+                    key="favorite"
                     type="text" 
                     icon={<HeartOutlined />}
-                    onClick={() => console.log('Add to favorites')}
+                    onClick={handleFavoriteClick}
                 >
                     Add to favorites
                 </Button>
             ]}
         >
             <Card.Meta
-                title={
-                    <Typography.Title level={4} className={styles.title}>
-                        {title}
-                    </Typography.Title>
-                }
+                title={title}
                 description={
-                    <Space direction="vertical" size="small">
-                        <Typography.Paragraph ellipsis={{ rows: 3 }}>
+                    <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+                        <Typography.Paragraph
+                            ellipsis={{ rows: 3 }}
+                            style={{ marginBottom: 0 }}
+                        >
                             {overview}
                         </Typography.Paragraph>
-                        <Space>
+                        <Space split>
                             <Rate disabled defaultValue={vote_average / 2} allowHalf />
                             <Typography.Text type="secondary">
                                 {new Date(release_date).toLocaleDateString()}
