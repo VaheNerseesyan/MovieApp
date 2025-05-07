@@ -9,9 +9,8 @@ interface ProtectedRouteProps {
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     const location = useLocation();
     const isAuthenticated = useSelector((state: RootState) => state.auth.isLoggedIn);
-    const hasValidTokens = !!localStorage.getItem('access_token');
 
-    if (!isAuthenticated && !hasValidTokens) {
+    if (!isAuthenticated) {
         return <Navigate to="/login" state={{ from: location }} replace />;
     }
 

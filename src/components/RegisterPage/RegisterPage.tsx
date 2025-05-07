@@ -1,18 +1,16 @@
 import { auth } from "../../firebase";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
 import { Button, Input } from "antd";
 import { Card } from "antd";
-import { login } from "../../features/logedIn/LogedInSlice";
 function RegisterPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const { isLoggedIn } = useSelector((state: RootState) => state.auth);
-    const dispatch = useDispatch();
 
     useEffect(() => {
         if (isLoggedIn) {
@@ -21,11 +19,11 @@ function RegisterPage() {
         }
     }, []);
 
-    const handleRegister = async () => {
+    const handleRegister = async (e: FormEvent) => {
+        e.preventDefault();
+        const email = `${username.toLowerCase()}@gmail.com`;
         try {
-            const email = `${username.toLowerCase()}@gmail.com`;
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-            dispatch(login({ email: userCredential.user.email }));      
+            await createUserWithEmailAndPassword(auth, email, password);
             alert("User registered successfully");
             navigate("/login");
         } catch (error) {
@@ -45,7 +43,7 @@ function RegisterPage() {
         }}>
             <Card style={{ width: 500 }}>
                 <h1 style={{ textAlign: 'center' }}>Register</h1>
-                <form onSubmit={handleRegister}>
+                <form>
                     <div>
                         <h4>Username</h4>
                         <Input
@@ -71,6 +69,7 @@ function RegisterPage() {
                     <Button
                         type="primary"
                         htmlType="submit"
+                        onClick={handleRegister}
                         block
                     >
                         Register
