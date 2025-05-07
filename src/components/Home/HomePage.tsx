@@ -40,7 +40,7 @@ function HomePage() {
     return (
         <>
             <div>
-                <Search 
+                <Search
                     style={{ width: '300px' }}
                     placeholder="Search By Title"
                     onSearch={() => console.log('search')}
@@ -50,7 +50,7 @@ function HomePage() {
             <div>
                 <h1>Movies</h1>
                 <div>
-                    <Row justify="center" style={{ justifyContent: 'space-evenly' }} gutter={[15, 15]}>
+                    <Row justify="center" style={{ justifyContent: 'space-evenly' }}>
                         {movies?.length > 0 && movies.map((movie: any) => (
                             <FilmCard
                                 key={movie.id}
