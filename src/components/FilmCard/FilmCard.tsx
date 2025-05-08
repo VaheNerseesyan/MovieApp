@@ -1,4 +1,4 @@
-import { Card, Rate, Button, Typography, Space } from 'antd';
+import { Card, Rate, Button, Typography, Space, Empty } from 'antd';
 import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -55,12 +55,16 @@ function FilmCard({ title, poster_path, overview, vote_average, release_date, id
             hoverable
             id = {id}
             style={{ width: '320px', display: 'flex', flexWrap: 'wrap', flexDirection: 'column', alignItems: 'center' }}
-            cover={
+            cover={poster_path ? 
                 <img
-                    alt={title}
                     src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
                     style={{ height: '100%', objectFit: 'cover', width: '320px' }}
                     onClick={() => navigate(`/movie/${id}`)}
+                /> : 
+                <Empty
+                    style={{ height: '100%', objectFit: 'cover', width: '320px' }}
+                    description="No poster available"
+                    image={Empty.PRESENTED_IMAGE_SIMPLE}
                 />
             }
             actions={[

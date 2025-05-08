@@ -26,7 +26,7 @@ function LoginPage() {
         setLoading(true);
 
         try {
-            const email = `${username.toLowerCase()}@gmail.com`;
+            const email = `${username.toLowerCase()}`;
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             dispatch(login({ email: userCredential.user.email }));
             navigate("/", { state: { username: username, email: email } });
@@ -50,10 +50,10 @@ function LoginPage() {
                 <h1 style={{ textAlign: 'center' }}>Login</h1>
                 <form onSubmit={handleLogIn}>
                     <div>
-                        <h4>Username</h4>
+                        <h4>Email</h4>
                         <Input
                             type="text"
-                            placeholder="Enter your username"
+                            placeholder="Enter your email"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             required

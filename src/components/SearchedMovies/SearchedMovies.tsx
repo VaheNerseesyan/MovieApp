@@ -26,7 +26,7 @@ function SearchedMovies() {
         }
     }, [title, pageid]);
 
-    console.log(searchResults);
+    // console.log(searchResults);
 
     const changePage = (page: number) => {
         setCurrentPage(page);
@@ -61,6 +61,7 @@ function SearchedMovies() {
                 current={currentPage}
                 total={totalResults}
                 onChange={changePage}
+                showSizeChanger={false}
             />
         </div>
     );

@@ -4,10 +4,10 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../app/store";
-import { Button, Input } from "antd";
+import { Button, Input, Typography } from "antd";
 import { Card } from "antd";
 function RegisterPage() {
-    const [username, setUsername] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
     const { isLoggedIn } = useSelector((state: RootState) => state.auth);
@@ -21,7 +21,6 @@ function RegisterPage() {
 
     const handleRegister = async (e: FormEvent) => {
         e.preventDefault();
-        const email = `${username.toLowerCase()}@gmail.com`;
         try {
             await createUserWithEmailAndPassword(auth, email, password);
             alert("User registered successfully");
@@ -45,12 +44,12 @@ function RegisterPage() {
                 <h1 style={{ textAlign: 'center' }}>Register</h1>
                 <form>
                     <div>
-                        <h4>Username</h4>
+                        <h4>Email</h4>
                         <Input
                             type="text"
-                            placeholder="Enter your username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="Enter your email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             required
                             autoComplete="username"
                         />
@@ -64,6 +63,13 @@ function RegisterPage() {
                             required
                             autoComplete="current-password"
                         />
+                        <Typography.Text type="secondary" style={{ fontSize: 10}}>
+                                <p>Password must be at least 6 characters long</p>
+                                <p>Password must contain at least one uppercase letter</p>
+                                <p>Password must contain at least one lowercase letter</p>
+                                <p>Password must contain at least one number</p>
+                                <p>Password must contain at least one special character</p>
+                        </Typography.Text>
                     </div>
                     <br />
                     <Button

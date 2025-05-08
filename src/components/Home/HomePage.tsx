@@ -3,7 +3,6 @@ import { MovieApi } from "../api/MovieApi";
 import FilmCard from "../FilmCard/FilmCard";
 import { Pagination, Row } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
-import Search from "antd/es/input/Search";
 
 
 function HomePage() {
@@ -11,7 +10,7 @@ function HomePage() {
     const [currentPage, setCurrentPage] = useState(useParams().pageid || 1);
     const navigate = useNavigate();
     const { pageid } = useParams();
-    const [searchValue, setSearchValue] = useState('');
+    // const [searchValue, setSearchValue] = useState('');
 
     useEffect(() => {
         if (isNaN(Number(pageid))) {
@@ -38,21 +37,9 @@ function HomePage() {
         });
     }, [currentPage]);
 
-    const handleSearch = (value: string) => {
-        navigate(`/search/${value}/page/1`);
-    }
 
     return (
         <>
-            <div>
-                <Search
-                    style={{ width: '300px' }}
-                    placeholder="Search By Title"
-                    onSearch={handleSearch}
-                    value={searchValue}
-                    onChange={(e) => setSearchValue(e.target.value)}
-                    id="search" />
-            </div>
             <div>
                 <h1>Movies</h1>
                 <div>

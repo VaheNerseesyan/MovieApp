@@ -7,7 +7,7 @@ const Favorites = () => {
     const favorites = useSelector((state: RootState) => state.favorites.favoritesByUser);
     const user = useSelector((state: RootState) => state.auth.user);
 
-    if (favorites[user?.email || ''] === undefined) {
+    if (favorites[user?.email || ''] === undefined || favorites[user?.email || ''].length === 0) {
         return (
             <div style={{
                 display: 'flex',
