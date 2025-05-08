@@ -37,3 +37,46 @@
     transform: translateY(0px);
   }
 }
+
+/* Carousel dots styling */
+.ant-carousel .slick-dots li {
+  background: #000;
+}
+
+.ant-carousel .slick-dots li button {
+  background: #000 !important;
+  opacity: 0.4;
+}
+
+.ant-carousel .slick-dots li.slick-active button {
+  background: #000 !important;
+  opacity: 1;
+}
+
+/* Make dots more visible */
+.ant-carousel .slick-dots-bottom {
+  bottom: 12px;
+}
+
+/* Pagination hover styles */
+.ant-pagination .ant-pagination-item:hover {
+  border-color: #fff !important;
+}
+
+.ant-pagination .ant-pagination-item:hover a {
+  color: #fff !important;
+}
+
+.ant-pagination .ant-pagination-item-active {
+  border-color: #fff !important;
+}
+
+.ant-pagination .ant-pagination-item-active a {
+  color: #fff !important;
+}
+
+.ant-pagination .ant-pagination-prev:hover .ant-pagination-item-link,
+.ant-pagination .ant-pagination-next:hover .ant-pagination-item-link {
+  border-color: #fff !important;
+  color: #fff !important;
+}

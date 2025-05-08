@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-
+import background from '../../assets/Background.png';
 import { useState } from "react";
 import { getFilmByTitle } from "../api/MovieApi";
 import { useParams } from "react-router-dom";
@@ -41,8 +41,8 @@ function SearchedMovies() {
     }, [currentPage]);
 
     return (
-        <div>
-            <h1>Searched Movies</h1>
+        <div style={{ background: `url(${background})`, marginTop: -20 }}>
+            <h2 style={{ textAlign: 'center', color: 'white', paddingTop: 80 }}>Searched results for '{title}'</h2>
             <div>
                 <Row justify="center" style={{ justifyContent: 'space-evenly' }}>
                     {searchResults?.map((result: any) => (
@@ -57,12 +57,15 @@ function SearchedMovies() {
                     ))}
                 </Row>
             </div>
-            <Pagination
-                current={currentPage}
-                total={totalResults}
-                onChange={changePage}
-                showSizeChanger={false}
-            />
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Pagination
+                    current={currentPage}
+                    total={totalResults}
+                    onChange={changePage}
+                    showSizeChanger={false}
+                    style={{ color: 'white', backgroundColor: 'white', borderRadius: '5px' }}
+                />
+            </div>
         </div>
     );
 }

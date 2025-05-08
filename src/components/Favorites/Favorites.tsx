@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 import FilmCard from '../FilmCard/FilmCard';
 import { Empty, Row } from 'antd';
-
+import background from '../../assets/Background.png';
 const Favorites = () => {
     const favorites = useSelector((state: RootState) => state.favorites.favoritesByUser);
     const user = useSelector((state: RootState) => state.auth.user);
@@ -24,8 +24,8 @@ const Favorites = () => {
     }
 
     return (
-        <div>
-            <h2 style={{ textAlign: 'center' }}>Favorite Movies</h2>
+        <div style={{ background: `url(${background})`, marginTop: -20 }}>
+            <h2 style={{ textAlign: 'center', color: 'white', paddingTop: 80 }}>Favorite Movies</h2>
             <div style={{
                 display: 'grid',
                 gap: '24px'

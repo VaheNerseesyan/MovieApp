@@ -3,6 +3,7 @@ import { MovieApi, getPopularMovies } from "../api/MovieApi";
 import FilmCard from "../FilmCard/FilmCard";
 import { Pagination, Row, Carousel } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
+import background from '../../assets/Background.png';
 
 
 function HomePage() {
@@ -42,13 +43,12 @@ function HomePage() {
         getPopularMovies().then(res => setPopularMovies(res));
     }, []);
     return (
-        <div>
-            <div>
-                <h2 style={{ textAlign: 'center' }}>Popular Movies</h2>
+        <div style={{ background: `url(${background})`}}>
+            <div style={{ marginTop: -20 }}> 
+                <h2 style={{ textAlign: 'center', color: 'white', paddingTop: 80 }}>Popular Movies</h2>
                 <div style={{ 
                     width: '99vw',
                     height: '370px', 
-                    backgroundColor: '#d1d1d1', 
                     borderRadius: '5px',
                     display: 'flex',
                     justifyContent: 'center',
@@ -96,7 +96,7 @@ function HomePage() {
                     </Carousel>
                 </div>
                 <div>
-                    <h2 style={{ textAlign: 'center' }}>Movies</h2>
+                    <h2 style={{ textAlign: 'center', color: 'white' }}>Movies</h2>
                     <div>
                     <Row justify="center" style={{ justifyContent: 'space-evenly' }}>
                         {movies?.length > 0 && movies.map((movie: any) => (
@@ -117,6 +117,7 @@ function HomePage() {
                         current={Number(currentPage)}
                         onChange={changePage}
                         total={50}
+                        style={{ color: 'white', backgroundColor: 'white', borderRadius: '5px' }}
                     />
                 </div>
                 </div>
