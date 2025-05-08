@@ -29,4 +29,13 @@ const getFilmByTitle = async (title: string, page: number) => {
         .then(res => [res.results, res.total_results ])
 };
 
-export { getFilm, MovieApi, getFilmByTitle }; 
+
+  
+const getPopularMovies = async () => {
+    return fetch('https://api.themoviedb.org/3/movie/popular?language=en-US', options)
+        .then(res => res.json())
+        .then(res => res.results)
+        .catch(err => console.error(err));
+}
+
+export { getFilm, MovieApi, getFilmByTitle, getPopularMovies }; 

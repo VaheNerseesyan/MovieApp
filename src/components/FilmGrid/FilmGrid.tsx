@@ -9,8 +9,8 @@ import { createSelector } from '@reduxjs/toolkit';
 import { addToFavorites, removeFromFavorites } from '../../features/favorites/favoritesSlice';
 
 const selectUserFavorites = createSelector(
-    [(state: RootState) => state.favorites.favoritesByUser, 
-     (state: RootState) => state.auth.user?.email],
+    [(state: RootState) => state.favorites.favoritesByUser,
+    (state: RootState) => state.auth.user?.email],
     (favoritesByUser, userEmail) => favoritesByUser[userEmail || ''] || []
 );
 
@@ -53,10 +53,14 @@ function FilmGrid() {
     }, [id]);
 
     return (
-        <div key={id}>
+        <div key={id} style={{ margin: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <Card style={{ border: '1px solid white' }}>
+                <img
+                    style={{
+                        height: 700
+                    }}
+                    src={`https://image.tmdb.org/t/p/original/${film?.backdrop_path}`} alt={film?.title} />
                 <h1>{film?.title}</h1>
-                <img style={{ width: 300, height: 450 }} src={`https://image.tmdb.org/t/p/w500/${film?.poster_path}`} alt={film?.title} />
                 <Typography.Paragraph>
                     {film?.overview}
                 </Typography.Paragraph>

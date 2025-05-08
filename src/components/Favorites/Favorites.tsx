@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 import FilmCard from '../FilmCard/FilmCard';
-import { Typography, Empty, Row } from 'antd';
+import { Empty, Row } from 'antd';
 
 const Favorites = () => {
     const favorites = useSelector((state: RootState) => state.favorites.favoritesByUser);
@@ -25,9 +25,7 @@ const Favorites = () => {
 
     return (
         <div>
-            <Typography.Title level={2} style={{ marginBottom: '24px' }}>
-                Favorite Movies
-            </Typography.Title>
+            <h2 style={{ textAlign: 'center' }}>Favorite Movies</h2>
             <div style={{
                 display: 'grid',
                 gap: '24px'

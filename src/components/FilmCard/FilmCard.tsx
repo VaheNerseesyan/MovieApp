@@ -54,10 +54,18 @@ function FilmCard({ title, poster_path, overview, vote_average, release_date, id
         <Card
             hoverable
             id = {id}
-            style={{ width: '320px', display: 'flex', flexWrap: 'wrap', flexDirection: 'column', alignItems: 'center' }}
+            style={{ 
+                width: '320px', 
+                display: 'flex', 
+                flexWrap: 'wrap', 
+                flexDirection: 'column', 
+                alignItems: 'center', 
+                margin: '10px',
+                border: '1px solid #adadad'
+            }}
             cover={poster_path ? 
                 <img
-                    src={`https://image.tmdb.org/t/p/w500/${poster_path}`}
+                    src={`https://image.tmdb.org/t/p/original/${poster_path}`}
                     style={{ height: '100%', objectFit: 'cover', width: '320px' }}
                     onClick={() => navigate(`/movie/${id}`)}
                 /> : 
