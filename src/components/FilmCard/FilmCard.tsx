@@ -3,8 +3,8 @@ import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
-import { createSelector } from '@reduxjs/toolkit';
 import { addToFavorites, removeFromFavorites } from '../../features/favorites/favoritesSlice';
+import { createSelector } from '@reduxjs/toolkit';
 
 interface Movie {
     id: string;
@@ -24,22 +24,22 @@ const selectUserFavorites = createSelector(
 function FilmCard({ title, poster_path, overview, vote_average, release_date, id }: Movie) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const userFavorites = useSelector(selectUserFavorites);
     const user = useSelector((state: RootState) => state.auth.user);
-    const isFavorite = userFavorites.some((fav: Movie) => fav.id === id);
+    const userFavorites = useSelector(selectUserFavorites);
+    const isFavorite = userFavorites.some((fav: any) => Number(fav.id) === Number(id));
 
     const handleFavoriteClick = (e: React.MouseEvent) => {
         e.stopPropagation();
         if (isFavorite) {
             dispatch(removeFromFavorites({
                 userEmail: user?.email || '',
-                movieId: id
+                movieId: Number(id)
             }));
         } else {
             dispatch(addToFavorites({
                 userEmail: user?.email || '',
                 movie: {
-                    id: id,
+                    id: Number(id),
                     title: title,
                     poster_path: poster_path,
                     overview: overview,
@@ -53,7 +53,7 @@ function FilmCard({ title, poster_path, overview, vote_average, release_date, id
     return (
         <Card
             hoverable
-            id={id}
+            id = {id}
             style={{ width: '320px', display: 'flex', flexWrap: 'wrap', flexDirection: 'column', alignItems: 'center' }}
             cover={
                 <img
@@ -64,9 +64,9 @@ function FilmCard({ title, poster_path, overview, vote_average, release_date, id
                 />
             }
             actions={[
-                <Button
+                <Button 
                     key="favorite"
-                    type="text"
+                    type="text" 
                     icon={isFavorite ? <HeartFilled style={{ color: '#ff4d4f' }} /> : <HeartOutlined />}
                     onClick={handleFavoriteClick}
                 >

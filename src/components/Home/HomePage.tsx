@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { MovieApi, getFilmByTitle } from "../api/MovieApi";
+import { useEffect, useState, memo } from "react";
+import { MovieApi } from "../api/MovieApi";
 import FilmCard from "../FilmCard/FilmCard";
 import { Pagination, Row } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
@@ -82,4 +82,4 @@ function HomePage() {
     )
 }
 
-export default HomePage;
+export default memo(HomePage);

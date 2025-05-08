@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface Movie {
-    id: string;
+    id: number;
     title: string;
     poster_path: string;
     overview: string;
@@ -16,7 +16,7 @@ interface FavoritesState {
 }
 
 const initialState: FavoritesState = {
-    favoritesByUser: {}
+    favoritesByUser: JSON.parse(localStorage.getItem('favorites') || '{}')
 };
 
 const favoritesSlice = createSlice({
@@ -26,15 +26,18 @@ const favoritesSlice = createSlice({
         addToFavorites: (state, action: PayloadAction<{userEmail: string; movie: Movie}>) => {
             if (!state.favoritesByUser[action.payload.userEmail]) {
                 state.favoritesByUser[action.payload.userEmail] = [];
+                localStorage.setItem('favorites', JSON.stringify(state.favoritesByUser));
             }
             if (!state.favoritesByUser[action.payload.userEmail].some(movie => movie.id === action.payload.movie.id)) {
                 state.favoritesByUser[action.payload.userEmail].push(action.payload.movie);
+                localStorage.setItem('favorites', JSON.stringify(state.favoritesByUser));
             }
         },
-        removeFromFavorites: (state, action: PayloadAction<{userEmail: string; movieId: string}>) => {
+        removeFromFavorites: (state, action: PayloadAction<{userEmail: string; movieId: number}>) => {
             if (state.favoritesByUser[action.payload.userEmail]) {
                 state.favoritesByUser[action.payload.userEmail] = state.favoritesByUser[action.payload.userEmail]
-                    .filter(movie => movie.id !== action.payload.movieId);
+                    .filter(movie => movie.id !== Number(action.payload.movieId));
+                localStorage.setItem('favorites', JSON.stringify(state.favoritesByUser));
             }
         }
     }

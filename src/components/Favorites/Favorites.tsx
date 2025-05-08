@@ -3,18 +3,10 @@ import { RootState } from '../../app/store';
 import FilmCard from '../FilmCard/FilmCard';
 import { Typography, Empty, Row } from 'antd';
 
-interface Movie {
-    id: string;
-    title: string;
-    poster_path: string;
-    overview: string;
-    vote_average: number;
-    release_date: string;
-}
-
 const Favorites = () => {
     const favorites = useSelector((state: RootState) => state.favorites.favoritesByUser);
     const user = useSelector((state: RootState) => state.auth.user);
+
     if (favorites[user?.email || ''] === undefined) {
         return (
             <div style={{
@@ -41,7 +33,7 @@ const Favorites = () => {
                 gap: '24px'
             }}>
                 <Row justify="center" style={{ justifyContent: 'space-evenly', gap: '42px' }}>
-                    {favorites[user?.email || ''].map((favorite: Movie) => (
+                    {favorites[user?.email || ''].map((favorite) => (
                         <FilmCard
                             key={favorite.id}
                             title={favorite.title}
@@ -49,7 +41,7 @@ const Favorites = () => {
                             overview={favorite.overview}
                             vote_average={favorite.vote_average}
                             release_date={favorite.release_date}
-                            id={favorite.id}
+                            id={favorite.id.toString()}
                         />
                     ))}
                 </Row>
