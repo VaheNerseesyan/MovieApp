@@ -29,27 +29,40 @@ const Layout = () => {
         },
     ];
 
+    const breadcrumbItems = [
+        {
+            title: (
+                <NavLink to="/" end>
+                    <HomeOutlined style={{ fontSize: '16px', color: 'black' }} />&nbsp; Home &nbsp;
+                </NavLink>
+            ),
+        },
+        {
+            title: (
+                <NavLink to="/favorites" end>
+                    <HeartOutlined style={{ fontSize: '16px', color: 'black' }} />&nbsp; Favorites &nbsp;
+                </NavLink>
+            ),
+        },
+        {
+            title: (
+                <Dropdown menu={{ items }}>
+                    <a onClick={(e) => e.preventDefault()}>
+                        <Space>
+                            <UserOutlined style={{ fontSize: '16px', color: 'black', cursor: 'pointer' }} />
+                            <span style={{ cursor: 'pointer' }}>{user?.email}</span>
+                            <DownOutlined />
+                        </Space>
+                    </a>
+                </Dropdown>
+            ),
+        },
+    ];
 
     return (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <nav style={{ justifyContent: 'center', alignItems: 'center' }}>
-                <Breadcrumb>
-                    <NavLink to="/" end>
-                        <HomeOutlined style={{ fontSize: '16px', color: 'black' }} />&nbsp; Home &nbsp;
-                    </NavLink>
-                    <NavLink to="/favorites" end>
-                        <HeartOutlined style={{ fontSize: '16px', color: 'black' }} />&nbsp; Favorites &nbsp;
-                    </NavLink>
-                    <Dropdown menu={{ items }}>
-                        <a onClick={(e) => e.preventDefault()}>
-                            <Space>
-                                <UserOutlined style={{ fontSize: '16px', color: 'black', cursor: 'pointer' }} />
-                                <span style={{ cursor: 'pointer' }}>{user?.email}</span>
-                                <DownOutlined />
-                            </Space>
-                        </a>
-                    </Dropdown>
-                </Breadcrumb>
+                <Breadcrumb items={breadcrumbItems} />
             </nav>
             <Outlet />
         </div >

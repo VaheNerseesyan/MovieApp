@@ -7,7 +7,7 @@ import Favorites from "./components/Favorites/Favorites";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import FilmGrid from "./components/FilmGrid/FilmGrid";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
-
+import SearchedMovies from "./components/SearchedMovies/SearchedMovies";
 const router = createBrowserRouter([
     {
         path: "/login",
@@ -38,8 +38,8 @@ const router = createBrowserRouter([
                 element: <HomePage />,
             },
             {
-                path: "search/:title",
-                element: <HomePage />,
+                path: "search/:title/page/:pageid",
+                element: <SearchedMovies />,
             },
             {
                 path: "*",
