@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { getFilm } from "../api/MovieApi";
 import { useState, useEffect } from "react";
-import { Button, Card, Rate, Typography } from "antd";
+import { Button, Card, Empty, Rate, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
@@ -53,13 +53,19 @@ function FilmGrid() {
     }, [id]);
 
     return (
-        <div key={id} style={{ margin: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            <Card style={{ border: '1px solid white' }}>
+        <div key={id} style={{ margin: '20px' }}>
+            <Card style={{ border: '1px solid white',}}>
+                {film?.backdrop_path ? 
                 <img
-                    style={{
-                        height: 700
-                    }}
-                    src={`https://image.tmdb.org/t/p/original/${film?.backdrop_path}`} alt={film?.title} />
+                    src={`https://image.tmdb.org/t/p/original/${film?.backdrop_path}`}
+                    style={{ width: '100%', objectFit: 'cover' }}
+                /> : 
+                <Empty
+                    style={{ height: '100%', objectFit: 'cover', width: '320px' }}
+                    description="No poster available"
+                    image={Empty.PRESENTED_IMAGE_SIMPLE}
+                />
+            }
                 <h1>{film?.title}</h1>
                 <Typography.Paragraph>
                     {film?.overview}
@@ -69,6 +75,7 @@ function FilmGrid() {
                     Release date: {new Date(film?.release_date).toLocaleDateString()}
                 </div>
                 <Button
+                    style={{ marginTop: '10px'}}
                     key="favorite"
                     type="text"
                     icon={isFavorite ? <HeartFilled style={{ color: '#ff4d4f' }} /> : <HeartOutlined />}

@@ -67,7 +67,7 @@ const Layout = () => {
     }
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', }}>
             <nav style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <Breadcrumb items={breadcrumbItems} />
             </nav>

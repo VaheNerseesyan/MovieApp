@@ -41,13 +41,12 @@ function HomePage() {
     useEffect(() => {
         getPopularMovies().then(res => setPopularMovies(res));
     }, []);
-
     return (
-        <>
+        <div>
             <div>
                 <h2 style={{ textAlign: 'center' }}>Popular Movies</h2>
                 <div style={{ 
-                    width: '99vw', 
+                    width: '99vw',
                     height: '370px', 
                     backgroundColor: '#d1d1d1', 
                     borderRadius: '5px',
@@ -122,7 +121,7 @@ function HomePage() {
                 </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

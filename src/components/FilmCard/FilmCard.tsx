@@ -55,18 +55,19 @@ function FilmCard({ title, poster_path, overview, vote_average, release_date, id
             hoverable
             id = {id}
             style={{ 
-                width: '320px', 
+                width: '380px', 
                 display: 'flex', 
                 flexWrap: 'wrap', 
                 flexDirection: 'column', 
                 alignItems: 'center', 
+                justifyContent: 'center',
                 margin: '10px',
                 border: '1px solid #adadad'
             }}
             cover={poster_path ? 
                 <img
                     src={`https://image.tmdb.org/t/p/original/${poster_path}`}
-                    style={{ height: '100%', objectFit: 'cover', width: '320px' }}
+                    style={{ height: '100%', objectFit: 'cover', width: '380px' }}
                     onClick={() => navigate(`/movie/${id}`)}
                 /> : 
                 <Empty
@@ -89,9 +90,9 @@ function FilmCard({ title, poster_path, overview, vote_average, release_date, id
             <Card.Meta
                 title={title}
                 description={
-                    <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+                    <Space direction="vertical" size="small" style={{ width: '100%' }}>
                         <Typography.Paragraph
-                            ellipsis={{ rows: 3 }}
+                            ellipsis={{ rows: 2 }}
                             style={{ marginBottom: 0 }}
                         >
                             {overview}
