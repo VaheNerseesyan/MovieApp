@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { getFilm, getMovieActors, getMovieBackdrops } from "../api/MovieApi";
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { Button, Card, Carousel, Empty, Rate, Spin } from "antd";
 import { HeartOutlined, HeartFilled, LoadingOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -81,7 +81,15 @@ function FilmGrid() {
                 <Card style={{ background: `url(${background})` }}>
                     {film.length === 0 ? <Spin indicator={<LoadingOutlined style={{ fontSize: 48, color: 'white', left: '50vw', top: '50vh' }} spin />} /> :
                         <>
-                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', marginTop: '70px' }}>
+                            <Button
+                                style={{ marginTop: '50px', color: 'white', backgroundColor: 'transparent', border: '1.5px solid white', maxWidth: '250px' }}
+                                key="back"
+                                type="text"
+                                onClick={() => window.history.back()}
+                            >
+                                Go Back
+                            </Button>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', marginTop: '10px' }}>
                                 {film?.poster_path ?
                                     <img
                                         src={`https://image.tmdb.org/t/p/original/${film?.poster_path}`}
@@ -141,7 +149,7 @@ function FilmGrid() {
                                 slidesToShow={5}
                                 infinite={true}
                             >
-                                {backdrops?.length > 0 && backdrops.slice(0,11).map((movie: any) => (
+                                {backdrops?.length > 0 && backdrops.map((movie: any) => (
                                     <div key={movie.id}>
                                         <img
                                             key={movie.id}

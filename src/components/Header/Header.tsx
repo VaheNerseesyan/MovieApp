@@ -5,7 +5,7 @@ import { RootState } from '../../app/store';
 import { logout } from "../../features/logedIn/LogedInSlice";
 import { NavLink, useNavigate } from 'react-router-dom';
 import Search from "antd/es/input/Search";
-import { Breadcrumb, Dropdown, MenuProps, Space, FloatButton } from 'antd';
+import { Breadcrumb, Dropdown, MenuProps, Space } from 'antd';
 import { DownOutlined, HeartOutlined, HomeOutlined, UserOutlined } from '@ant-design/icons';
 import { createSelector } from "@reduxjs/toolkit";
 
@@ -51,7 +51,7 @@ function Header() {
         {
             title: (
                 <NavLink to="/favorites" end>
-                    <HeartOutlined style={{ fontSize: '16px', color: 'white' }} /><span style={{color: 'white'}}>&nbsp; Favorites {userFavorites.length} &nbsp;</span>
+                    <HeartOutlined style={{ fontSize: '16px', color: 'white' }} /><span style={{color: 'white'}}>&nbsp; Favorites {userFavorites.length ? userFavorites.length : null} &nbsp;</span>
                 </NavLink>
             ),
         },

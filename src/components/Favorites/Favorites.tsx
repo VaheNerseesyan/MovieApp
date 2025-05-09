@@ -25,12 +25,12 @@ const Favorites = () => {
     }
 
     return (
-        <div style={{ background: `url(${background})`, marginTop: -20 }}>
-            <h2 style={{ textAlign: 'center', color: 'white',  }}>Favorite Movies</h2>
+        <div style={{ background: `url(${background})` }}>
             <div style={{
                 display: 'grid',
                 gap: '24px'
             }}>
+                <h2 style={{ textAlign: 'center', color: 'white', marginTop: '80px' }}>{favorites[user?.email || ''].length} &nbsp; Favorite Movies</h2>
                 <Row justify="center" style={{ justifyContent: 'space-evenly', gap: '42px' }}>
                     {favorites[user?.email || ''].map((favorite) => (
                         <FilmCard
