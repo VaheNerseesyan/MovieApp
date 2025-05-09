@@ -5,7 +5,7 @@ import { RootState } from '../../app/store';
 import { logout } from "../../features/logedIn/LogedInSlice";
 import { NavLink, useNavigate } from 'react-router-dom';
 import Search from "antd/es/input/Search";
-import { Breadcrumb, Dropdown, MenuProps, Space } from 'antd';
+import { Breadcrumb, Dropdown, MenuProps, Space, FloatButton } from 'antd';
 import { DownOutlined, HeartOutlined, HomeOutlined, UserOutlined } from '@ant-design/icons';
 import { createSelector } from "@reduxjs/toolkit";
 
@@ -44,14 +44,14 @@ function Header() {
         {
             title: (
                 <NavLink to="/" end>
-                    <HomeOutlined style={{ fontSize: '16px', color: 'white' }} />&nbsp; Home &nbsp;
+                    <HomeOutlined style={{ fontSize: '16px', color: 'white' }} /><span style={{color: 'white'}}>&nbsp; Home &nbsp;</span>
                 </NavLink>
             ),
         },
         {
             title: (
                 <NavLink to="/favorites" end>
-                    <HeartOutlined style={{ fontSize: '16px', color: 'white' }} />&nbsp; Favorites {userFavorites.length} &nbsp;
+                    <HeartOutlined style={{ fontSize: '16px', color: 'white' }} /><span style={{color: 'white'}}>&nbsp; Favorites {userFavorites.length} &nbsp;</span>
                 </NavLink>
             ),
         },
@@ -61,7 +61,7 @@ function Header() {
                     <a onClick={(e) => e.preventDefault()}>
                         <Space>
                             <UserOutlined style={{ fontSize: '16px', color: 'white', cursor: 'pointer' }} />
-                            <span style={{ cursor: 'pointer' }}>{user?.email}</span>
+                            <span style={{ cursor: 'pointer', color: 'white' }}>{user?.email}</span>
                             <DownOutlined />
                         </Space>
                     </a>
@@ -80,18 +80,18 @@ function Header() {
             alignItems: 'center',
             position: 'fixed',
             width: '100%',
-            bottom: '92%',
             top: 0,
             left: 0,
             right: 0,
             zIndex: 1000,
+            padding: 12,
             backgroundColor: 'rgba(101, 101, 101, 0.77)',
             backdropFilter: 'blur(5px)',
         }}>
             <nav style={{ justifyContent: 'center', alignItems: 'center', marginLeft: 20, color: 'white' }}>
                 <Breadcrumb items={breadcrumbItems} />
             </nav>
-            
+
             <Search
                 style={{ width: '300px', marginLeft: 20 }}
                 placeholder="Search By Title"
