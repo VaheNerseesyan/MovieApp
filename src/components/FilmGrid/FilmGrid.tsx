@@ -63,12 +63,55 @@ function FilmGrid() {
         }
     }, [id])
 
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    }, [])
+
     console.log('videos', videos)
     return (
         <>
             <div key={id}>
-                <Card style={{ background: `url(${background})`, width: '99vw', height: '100vw' }}>
-                    <h1 style={{ color: 'white', marginTop: 40 }}>{film?.title}</h1>
+                <Card style={{ background: `url(${background})` }}>
+                    <h1 style={{ color: 'white', marginTop: 40, textAlign: 'center' }}>{film?.title}</h1>
+                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                        {film?.poster_path ?
+                            <img
+                                src={`https://image.tmdb.org/t/p/original/${film?.poster_path}`}
+                                style={{ height: '100%', objectFit: 'cover', width: '380px' }}
+                            /> :
+                            <Empty
+                                style={{ height: '100%', objectFit: 'cover', width: '320px' }}
+                                description="No poster available"
+                                image={Empty.PRESENTED_IMAGE_SIMPLE}
+                            />
+                        }
+                        <div style={{ color: 'white', width: '50%', display: 'flex', flexDirection: 'column' }}>
+                            <h2 style={{ color: 'white' }}>Overview</h2>
+                            {film?.overview}
+                            {film?.vote_average && <Rate style={{ marginTop: 10 }} disabled defaultValue={film?.vote_average / 2} allowHalf />}
+                            <div style={{ color: 'white', marginTop: 10 }}>
+                                Release date: {new Date(film?.release_date).toLocaleDateString()}
+                            </div>
+                            <Button
+                                style={{ marginTop: '10px', color: 'white', backgroundColor: 'black', border: '1px solid white', maxWidth: '250px' }}
+                                key="favorite"
+                                type="text"
+                                icon={isFavorite ? <HeartFilled style={{ color: '#ff4d4f' }} /> : <HeartOutlined />}
+                                onClick={handleFavoriteClick}
+                            >
+                                {isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+                            </Button>
+                            <div style={{ display: 'flex', flexDirection: 'column', }}>
+                                <h2 style={{ color: 'white' }}>Trailer</h2>
+                                {videos?.length > 0 ? (
+                                    <iframe style={{ width: '300px', height: '200px' }}
+                                        src={`https://www.themoviedb.org/video/play?key=${videos[0].key}`} title={videos[0].name} />
+                                ) : (
+                                    <Empty description="No trailer available" />
+                                )}
+                            </div>
+                        </div>
+                    </div>
                     <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly' }}>
                         {film?.backdrop_path ?
                             <img
@@ -82,35 +125,6 @@ function FilmGrid() {
                             />
                         }
                     </div>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', flexDirection: 'row', justifyContent: 'space-evenly' }}>
-                        <div style={{ display: 'flex', flexDirection: 'column', }}>
-                            <h2 style={{ color: 'white' }}>Trailer</h2>
-                            {videos?.length > 0 ? (
-                                <iframe style={{ width: '300px', height: '200px' }}
-                                    src={`https://www.themoviedb.org/video/play?key=${videos[0].key}`} title={videos[0].name} />
-                            ) : (
-                                <Empty description="No trailer available" />
-                            )}
-                            {film?.vote_average && <Rate style={{ marginTop: 10 }} disabled defaultValue={film?.vote_average / 2} allowHalf />}
-                            <div style={{ color: 'white', marginTop: 10 }}>
-                                Release date: {new Date(film?.release_date).toLocaleDateString()}
-                            </div>
-                            <Button
-                                style={{ marginTop: '10px', color: 'white', backgroundColor: 'black', border: '1px solid white' }}
-                                key="favorite"
-                                type="text"
-                                icon={isFavorite ? <HeartFilled style={{ color: '#ff4d4f' }} /> : <HeartOutlined />}
-                                onClick={handleFavoriteClick}
-                            >
-                                {isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-                            </Button>
-                        </div>
-                        <Typography.Paragraph style={{ color: 'white', width: '50%' }}>
-                            <h2 style={{ color: 'white' }}>Overview</h2>
-                            {film?.overview}
-                        </Typography.Paragraph>
-                    </div>
-
                 </Card>
             </div>
         </>
