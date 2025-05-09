@@ -45,5 +45,12 @@ const getMovieVideos = async (id: string) => {
     .catch(err => console.error(err));
 }
 
-export { getFilm, MovieApi, getFilmByTitle, getPopularMovies, getMovieVideos }; 
+const getMovieBackdrops = async (id: string) => {
+    return fetch(`https://api.themoviedb.org/3/movie/${id}/images`, options)
+    .then(res => res.json())
+    .then(res => res.backdrops)
+    .catch(err => console.error(err));
+}
+
+export { getFilm, MovieApi, getFilmByTitle, getPopularMovies, getMovieVideos, getMovieBackdrops }; 
 

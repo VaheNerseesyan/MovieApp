@@ -1,9 +1,10 @@
 import { useEffect, useState, memo } from "react";
 import { MovieApi, getPopularMovies } from "../api/MovieApi";
 import FilmCard from "../FilmCard/FilmCard";
-import { Pagination, Row, Carousel } from "antd";
+import { Pagination, Row, Carousel, Spin } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import background from '../../assets/Background.png';
+import { LoadingOutlined } from "@ant-design/icons";
 
 
 function HomePage() {
@@ -42,23 +43,35 @@ function HomePage() {
         getPopularMovies().then(res => setPopularMovies(res));
     }, []);
     return (
-        <div style={{ background: `url(${background})`}}>
-            <div style={{ marginTop: -20 }}> 
+        <div style={{ background: `url(${background})` }}>
+            {movies.length === 0 &&
+                <Spin
+                    indicator={
+                        <LoadingOutlined
+                            style={{
+                                fontSize: 48,
+                                color: 'white',
+                                left: '50vw',
+                                top: '50vh'
+                            }}
+                            spin
+                        />} />}
+            <div style={{ marginTop: -20 }}>
                 <h2 style={{ textAlign: 'center', color: 'white', paddingTop: 80 }}>Popular Movies</h2>
-                <div style={{ 
+                <div style={{
                     width: '99vw',
-                    height: '370px', 
+                    height: '370px',
                     borderRadius: '5px',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
                     overflow: 'hidden'
                 }}>
-                    <Carousel 
-                        style={{ 
+                    <Carousel
+                        style={{
                             width: '99vw',
                             height: '350px',
-                        }} 
+                        }}
                         autoplay
                         autoplaySpeed={1800}
                         dotPosition="bottom"
@@ -66,7 +79,7 @@ function HomePage() {
                         centerMode={true}
                         centerPadding="100px"
                         infinite={true}
-                        
+
                     >
                         {popularMovies?.length > 0 && popularMovies.map((movie: any) => (
                             <div key={movie.id} style={{
@@ -74,9 +87,9 @@ function HomePage() {
                                 display: 'flex',
                                 justifyContent: 'center'
                             }}>
-                                <img 
-                                    style={{ 
-                                        width: '200px', 
+                                <img
+                                    style={{
+                                        width: '200px',
                                         height: '300px',
                                         objectFit: 'cover',
                                         borderRadius: '5px',
@@ -85,9 +98,9 @@ function HomePage() {
                                         boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.5)',
                                         transition: 'transform 0.3s ease',
                                         transform: 'scale(0.9)'
-                                    }} 
-                                    src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} 
-                                    alt={movie.title} 
+                                    }}
+                                    src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
+                                    alt={movie.title}
                                     onClick={() => navigate(`/movie/${movie.id}`)}
                                 />
                             </div>
@@ -97,28 +110,28 @@ function HomePage() {
                 <div>
                     <h2 style={{ textAlign: 'center', color: 'white' }}>Movies</h2>
                     <div>
-                    <Row justify="center" style={{ justifyContent: 'space-evenly' }}>
-                        {movies?.length > 0 && movies.map((movie: any) => (
-                            <FilmCard
-                                key={movie.id}
-                                title={movie.title}
-                                poster_path={movie.poster_path}
-                                overview={movie.overview}
-                                vote_average={movie.vote_average}
-                                release_date={movie.release_date}
-                                id={movie.id}
-                            />
-                        ))}
-                    </Row>
-                </div>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Pagination
-                        current={Number(currentPage)}
-                        onChange={changePage}
-                        total={50}
-                        style={{ color: 'white', backgroundColor: 'white', borderRadius: '5px' }}
-                    />
-                </div>
+                        <Row justify="center" style={{ justifyContent: 'space-evenly' }}>
+                            {movies?.length > 0 && movies.map((movie: any) => (
+                                <FilmCard
+                                    key={movie.id}
+                                    title={movie.title}
+                                    poster_path={movie.poster_path}
+                                    overview={movie.overview}
+                                    vote_average={movie.vote_average}
+                                    release_date={movie.release_date}
+                                    id={movie.id}
+                                />
+                            ))}
+                        </Row>
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <Pagination
+                            current={Number(currentPage)}
+                            onChange={changePage}
+                            total={50}
+                            style={{ color: 'white', backgroundColor: 'white', borderRadius: '5px' }}
+                        />
+                    </div>
                 </div>
             </div>
         </div>

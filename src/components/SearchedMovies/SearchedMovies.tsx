@@ -4,17 +4,15 @@ import { useState } from "react";
 import { getFilmByTitle } from "../api/MovieApi";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { Pagination, Row } from "antd";
+import { Pagination, Row, Spin, Flex } from "antd";
 import FilmCard from "../FilmCard/FilmCard";
+import { LoadingOutlined } from "@ant-design/icons";
 function SearchedMovies() {
     const [searchResults, setSearchResults] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalResults, setTotalResults] = useState(0);
     const { title, pageid } = useParams();
     const navigate = useNavigate();
-
-
-    console.log(title, pageid);
 
     useEffect(() => {
         setCurrentPage(Number(pageid));
@@ -25,8 +23,6 @@ function SearchedMovies() {
             });
         }
     }, [title, pageid]);
-
-    // console.log(searchResults);
 
     const changePage = (page: number) => {
         setCurrentPage(page);
@@ -42,7 +38,12 @@ function SearchedMovies() {
 
     return (
         <div style={{ background: `url(${background})`, marginTop: -20 }}>
-            <h2 style={{ textAlign: 'center', color: 'white', paddingTop: 80 }}>Searched results for '{title}'</h2>
+            <Flex align="center" gap="middle">
+                <div>
+                    <h2 style={{ textAlign: 'center', color: 'white', paddingTop: 80 }}>Searched results for '{title}'</h2>
+                    {searchResults.length === 0 && <Spin indicator={<LoadingOutlined style={{ fontSize: 48, color: 'white', left: '50vw' }} spin />} />}
+                </div>
+            </Flex>
             <div>
                 <Row justify="center" style={{ justifyContent: 'space-evenly' }}>
                     {searchResults?.map((result: any) => (
