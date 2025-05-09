@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
-import { getFilm, getMovieBackdrops } from "../api/MovieApi";
-import { useState, useEffect } from "react";
+import { getFilm, getMovieActors, getMovieBackdrops } from "../api/MovieApi";
+import { useState, useEffect, use } from "react";
 import { Button, Card, Carousel, Empty, Rate, Spin } from "antd";
 import { HeartOutlined, HeartFilled, LoadingOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
@@ -25,6 +25,7 @@ function FilmGrid() {
     const isFavorite = userFavorites.some((fav: any) => Number(fav.id) === Number(id));
     const [videos, setVideos] = useState<any>(null);
     const [backdrops, setBackdrops] = useState<any>(null);
+    const [actors, setActors] = useState<any>([]);
 
     const handleFavoriteClick = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -53,16 +54,11 @@ function FilmGrid() {
             getFilm(id).then(res => {
                 setFilm(res)
             })
-        }
-    }, [id]);
-
-    useEffect(() => {
-        if (id) {
             getMovieVideos(id).then(res => {
                 setVideos(res)
             })
         }
-    }, [id])
+    }, [id]);
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -73,21 +69,23 @@ function FilmGrid() {
             getMovieBackdrops(id).then(res => {
                 setBackdrops(res)
             })
+            getMovieActors(id).then(res => {
+                setActors(res)
+            })
         }
     }, [])
 
     return (
         <>
             <div key={id}>
-                <Card style={{ background: `url(${background})`, width: '100%', height: '100%' }}>
+                <Card style={{ background: `url(${background})` }}>
                     {film.length === 0 ? <Spin indicator={<LoadingOutlined style={{ fontSize: 48, color: 'white', left: '50vw', top: '50vh' }} spin />} /> :
                         <>
-                            <h1 style={{ color: 'white', marginTop: 40, textAlign: 'center' }}>{film?.title}</h1>
-                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                            <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly', marginTop: '70px' }}>
                                 {film?.poster_path ?
                                     <img
                                         src={`https://image.tmdb.org/t/p/original/${film?.poster_path}`}
-                                        style={{ height: '100%', objectFit: 'cover', width: '380px' }}
+                                        style={{ height: '100%', objectFit: 'cover', width: '420px' }}
                                     /> :
                                     <Empty
                                         style={{ height: '100%', objectFit: 'cover', width: '320px' }}
@@ -95,12 +93,31 @@ function FilmGrid() {
                                         image={Empty.PRESENTED_IMAGE_SIMPLE}
                                     />
                                 }
-                                <div style={{ color: 'white', width: '50%', display: 'flex', flexDirection: 'column' }}>
+                                <div style={{ color: 'white', width: '60%', display: 'flex', flexDirection: 'column' }}>
+                                    <h1 style={{ color: 'white' }}>{film?.title} &nbsp;<h5 style={{ color: 'gray', display: 'inline' }}>({film?.original_title})</h5></h1>
+                                    {videos?.length > 0 ? (
+                                        <iframe style={{
+                                            width: "550px",
+                                            height: "280px",
+                                            borderRadius: "5px",
+                                            boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+                                        }}
+                                            src={`https://www.youtube.com/embed/${videos[0].key}`}
+                                            title={videos[0].name}
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowFullScreen />
+
+                                    ) : (
+                                        <Empty description="No trailer available" />
+                                    )}
                                     <h2 style={{ color: 'white' }}>Overview</h2>
                                     {film?.overview}
                                     {film?.vote_average && <Rate style={{ marginTop: 10 }} disabled defaultValue={film?.vote_average / 2} allowHalf />}
                                     <div style={{ color: 'white', marginTop: 10 }}>
                                         Release date: {new Date(film?.release_date).toLocaleDateString()}
+                                    </div>
+                                    <div style={{ color: 'white', marginTop: 10 }}>
+                                        {film?.runtime} Minutes
                                     </div>
                                     <Button
                                         style={{ marginTop: '10px', color: 'white', backgroundColor: 'black', border: '1px solid white', maxWidth: '250px' }}
@@ -111,36 +128,25 @@ function FilmGrid() {
                                     >
                                         {isFavorite ? 'Remove from favorites' : 'Add to favorites'}
                                     </Button>
-                                    <h2 style={{ color: 'white' }}>Trailer</h2>
-                                    {videos?.length > 0 ? (
-                                        <iframe style={{ width: '300px', height: '200px' }}
-                                            src={`https://www.themoviedb.org/video/play?key=${videos[0].key}`} title={videos[0].name} />
-                                    ) : (
-                                        <Empty description="No trailer available" />
-                                    )}
                                 </div>
                             </div>
-                            <h2 style={{ color: 'white', textAlign: 'center', marginTop: '30px' }}>Backdrop photos</h2>
                             <Carousel
                                 style={{
                                     height: '200px',
-                                    marginTop: '10px',
                                 }}
                                 autoplay
-                                autoplaySpeed={1800}
+                                autoplaySpeed={2000}
                                 dotPosition="bottom"
+                                dots={false}
                                 slidesToShow={5}
                                 infinite={true}
-
                             >
-                                {backdrops?.length > 0 && backdrops.map((movie: any) => (
-                                    <div key={movie.id} style={{
-
-                                    }}>
+                                {backdrops?.length > 0 && backdrops.slice(0,11).map((movie: any) => (
+                                    <div key={movie.id}>
                                         <img
                                             key={movie.id}
                                             style={{
-                                                width: '310px',
+                                                width: '300px',
                                                 height: '100%',
                                                 objectFit: 'cover',
                                                 borderRadius: '5px',
@@ -152,6 +158,43 @@ function FilmGrid() {
                                             src={`https://image.tmdb.org/t/p/w500/${movie.file_path}`}
                                             alt={movie.title}
                                         />
+                                    </div>
+                                ))}
+                            </Carousel>
+
+                            <h2 style={{ color: 'white', textAlign: 'center', marginTop: '80px' }}>Actors</h2>
+                            <Carousel
+                                style={{
+                                    height: '450px',
+                                }}
+                                autoplay
+                                autoplaySpeed={2000}
+                                dots={false}
+                                dotPosition="bottom"
+                                slidesToShow={6}
+                                infinite={true}
+                            >
+                                {actors?.length > 0 && actors.filter((actor: any) => (
+                                    actor.profile_path != null
+                                )).map((actor: any) => (
+                                    <div key={actor.id}>
+                                        <img
+                                            key={actor.id}
+                                            style={{
+                                                width: '200px',
+                                                height: '300px',
+                                                objectFit: 'cover',
+                                                borderRadius: '5px',
+                                                margin: '10px auto',
+                                                boxShadow: '0 0 10px 0 rgba(0, 0, 0, 0.5)',
+                                                transition: 'transform 0.3s ease',
+                                                transform: 'scale(0.9)'
+                                            }}
+                                            src={`https://image.tmdb.org/t/p/w500/${actor.profile_path}`}
+                                            alt={actor.name}
+                                        />
+                                        <h3 style={{ color: 'white', textAlign: 'center' }}>{actor.name}</h3>
+                                        <h4 style={{ color: 'gray', textAlign: 'center' }}>(Actor character){actor.character}</h4>
                                     </div>
                                 ))}
                             </Carousel>

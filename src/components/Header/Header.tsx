@@ -17,7 +17,7 @@ const selectUserFavorites = createSelector(
 
 function Header() {
     const { user } = useSelector((state: RootState) => state.auth);
-    const dispatch = useDispatch(); 
+    const dispatch = useDispatch();
     const [searchValue, setSearchValue] = useState('');
     const navigate = useNavigate();
     const userFavorites = useSelector(selectUserFavorites);
@@ -75,34 +75,30 @@ function Header() {
     }
 
     return (
-        <div style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            position: 'fixed', 
+        <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            position: 'fixed',
             width: '100%',
             bottom: '92%',
-            top: 0, 
-            left: 0, 
-            right: 0, 
-            zIndex: 1000, 
-            backgroundColor: 'rgba(142, 142, 142, 0.77)',
+            top: 0,
+            left: 0,
+            right: 0,
+            zIndex: 1000,
+            backgroundColor: 'rgba(101, 101, 101, 0.77)',
             backdropFilter: 'blur(5px)',
-            }}>
-            <nav style={{ justifyContent: 'center', alignItems: 'center', marginLeft: 20 }}>
+        }}>
+            <nav style={{ justifyContent: 'center', alignItems: 'center', marginLeft: 20, color: 'white' }}>
                 <Breadcrumb items={breadcrumbItems} />
             </nav>
-            <div style={{ left: 200 }}>
-                <Search
-                    style={{ width: '300px', marginLeft: 20 }}
-                    placeholder="Search By Title"
-                    onSearch={handleSearch}
-                    value={searchValue}
-                    onChange={(e) => setSearchValue(e.target.value)}
-                    id="search" />
-            </div>
-            <h3 style={{ marginLeft: 650, fontSize: 20, fontWeight: 'bold', fontFamily: 'Apple Chancery' }}>
-                Film App
-            </h3>
+            
+            <Search
+                style={{ width: '300px', marginLeft: 20 }}
+                placeholder="Search By Title"
+                onSearch={handleSearch}
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                id="search" />
         </div >
     );
 }

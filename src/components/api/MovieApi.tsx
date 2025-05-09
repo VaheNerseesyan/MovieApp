@@ -26,11 +26,11 @@ const getFilmByTitle = async (title: string, page: number) => {
     const url = `${GET_FILM_BY_TITLE_URL}${title}&page=${page}`;
     return fetch(url, options)
         .then(res => res.json())
-        .then(res => [res.results, res.total_results ])
+        .then(res => [res.results, res.total_results])
 };
 
 
-  
+
 const getPopularMovies = async () => {
     return fetch('https://api.themoviedb.org/3/movie/popular?language=en-US', options)
         .then(res => res.json())
@@ -40,17 +40,24 @@ const getPopularMovies = async () => {
 
 const getMovieVideos = async (id: string) => {
     return fetch(`https://api.themoviedb.org/3/movie/${id}/videos?`, options)
-    .then(res => res.json())
-    .then(res => res.results)
-    .catch(err => console.error(err));
+        .then(res => res.json())
+        .then(res => res.results)
+        .catch(err => console.error(err));
 }
 
 const getMovieBackdrops = async (id: string) => {
     return fetch(`https://api.themoviedb.org/3/movie/${id}/images`, options)
-    .then(res => res.json())
-    .then(res => res.backdrops)
-    .catch(err => console.error(err));
+        .then(res => res.json())
+        .then(res => res.backdrops)
+        .catch(err => console.error(err));
 }
 
-export { getFilm, MovieApi, getFilmByTitle, getPopularMovies, getMovieVideos, getMovieBackdrops }; 
+const getMovieActors = async (id: string) => {
+    return fetch(`https://api.themoviedb.org/3/movie/${id}/credits`, options)
+        .then(res => res.json())
+        .then(res => res.cast)
+        .catch(err => console.error(err));
+};
+
+export { getFilm, MovieApi, getFilmByTitle, getPopularMovies, getMovieVideos, getMovieBackdrops, getMovieActors };
 
