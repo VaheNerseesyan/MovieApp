@@ -55,23 +55,23 @@ function FilmCard({ title, poster_path, overview, vote_average, release_date, id
             hoverable
             id = {id}
             style={{ 
-                width: '380px', 
+                width: '300px', 
                 display: 'flex', 
                 flexWrap: 'wrap', 
                 flexDirection: 'column', 
                 alignItems: 'center', 
                 justifyContent: 'center',
-                margin: '10px',
+                margin: '20px',
                 border: '1px solid #adadad'
             }}
             cover={poster_path ? 
                 <img
                     src={`https://image.tmdb.org/t/p/original/${poster_path}`}
-                    style={{ height: '100%', objectFit: 'cover', width: '380px' }}
+                    style={{ height: '100%', objectFit: 'cover', width: '300px' }}
                     onClick={() => navigate(`/movie/${id}`)}
                 /> : 
                 <Empty
-                    style={{ height: '100%', objectFit: 'cover', width: '320px' }}
+                    style={{ height: '100%', objectFit: 'cover', width: '300px' }}
                     description="No poster available"
                     image={Empty.PRESENTED_IMAGE_SIMPLE}
                 />

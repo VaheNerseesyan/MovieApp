@@ -101,7 +101,7 @@ function Header() {
                     id="search" />
             </div>
             <h3 style={{ marginLeft: 650, fontSize: 20, fontWeight: 'bold', fontFamily: 'Apple Chancery' }}>
-                Movie App
+                Film App
             </h3>
         </div >
     );
