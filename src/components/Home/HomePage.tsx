@@ -12,7 +12,6 @@ function HomePage() {
     const navigate = useNavigate();
     const { pageid } = useParams();
     const [popularMovies, setPopularMovies] = useState([]);
-    // const [searchValue, setSearchValue] = useState('');
 
     useEffect(() => {
         if (isNaN(Number(pageid))) {
@@ -87,7 +86,7 @@ function HomePage() {
                                         transition: 'transform 0.3s ease',
                                         transform: 'scale(0.9)'
                                     }} 
-                                    src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`} 
+                                    src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} 
                                     alt={movie.title} 
                                     onClick={() => navigate(`/movie/${movie.id}`)}
                                 />

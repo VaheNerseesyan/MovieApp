@@ -38,4 +38,6 @@ const getPopularMovies = async () => {
         .catch(err => console.error(err));
 }
 
+
+
 export { getFilm, MovieApi, getFilmByTitle, getPopularMovies }; 

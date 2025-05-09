@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
 import { createSelector } from '@reduxjs/toolkit';
 import { addToFavorites, removeFromFavorites } from '../../features/favorites/favoritesSlice';
+import background from '../../assets/Background.png';
 
 const selectUserFavorites = createSelector(
     [(state: RootState) => state.favorites.favoritesByUser,
@@ -53,38 +54,46 @@ function FilmGrid() {
     }, [id]);
 
     return (
-        <div key={id} style={{ margin: '20px' }}>
-            <Card style={{ border: '1px solid white',}}>
-                {film?.backdrop_path ? 
-                <img
-                    src={`https://image.tmdb.org/t/p/original/${film?.backdrop_path}`}
-                    style={{ width: '100%', objectFit: 'cover' }}
-                /> : 
-                <Empty
-                    style={{ height: '100%', objectFit: 'cover', width: '320px' }}
-                    description="No poster available"
-                    image={Empty.PRESENTED_IMAGE_SIMPLE}
-                />
-            }
-                <h1>{film?.title}</h1>
-                <Typography.Paragraph>
-                    {film?.overview}
-                </Typography.Paragraph>
-                {film?.vote_average && <Rate disabled defaultValue={film?.vote_average / 2} allowHalf />}
-                <div>
-                    Release date: {new Date(film?.release_date).toLocaleDateString()}
-                </div>
-                <Button
-                    style={{ marginTop: '10px'}}
-                    key="favorite"
-                    type="text"
-                    icon={isFavorite ? <HeartFilled style={{ color: '#ff4d4f' }} /> : <HeartOutlined />}
-                    onClick={handleFavoriteClick}
-                >
-                    {isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-                </Button>
-            </Card>
-        </div>
+        <>
+            <div key={id}>
+                <Card style={{ background: `url(${background})`, width: '99vw', height: '100vw'}}>
+                    {film?.backdrop_path ?
+                        <img
+                            src={`https://image.tmdb.org/t/p/original/${film?.backdrop_path}`}
+                            style={{ width: '100%', objectFit: 'cover', marginTop: 80 }}
+                        /> :
+                        <Empty
+                            style={{ height: '100%', objectFit: 'cover', width: '320px' }}
+                            description="No poster available"
+                            image={Empty.PRESENTED_IMAGE_SIMPLE}
+                        />
+                    }
+                    <div>
+                        <h1 style={{ color: 'white' }}>{film?.title}</h1>
+                        <Typography.Paragraph style={{ color: 'white' }}>
+                            {film?.overview}
+                        </Typography.Paragraph>
+                        <div>
+                            
+
+                        </div>
+                        {film?.vote_average && <Rate disabled defaultValue={film?.vote_average / 2} allowHalf />}
+                        <div style={{ color: 'white' }}>
+                            Release date: {new Date(film?.release_date).toLocaleDateString()}
+                        </div>
+                        <Button
+                            style={{ marginTop: '10px', color: 'white' }}
+                            key="favorite"
+                            type="text"
+                            icon={isFavorite ? <HeartFilled style={{ color: '#ff4d4f' }} /> : <HeartOutlined />}
+                            onClick={handleFavoriteClick}
+                        >
+                            {isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+                        </Button>
+                    </div>
+                </Card>
+            </div>
+        </>
     )
 }
 

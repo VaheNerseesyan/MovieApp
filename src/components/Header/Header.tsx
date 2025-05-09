@@ -7,12 +7,21 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import Search from "antd/es/input/Search";
 import { Breadcrumb, Dropdown, MenuProps, Space } from 'antd';
 import { DownOutlined, HeartOutlined, HomeOutlined, UserOutlined } from '@ant-design/icons';
+import { createSelector } from "@reduxjs/toolkit";
+
+const selectUserFavorites = createSelector(
+    [(state: RootState) => state.favorites.favoritesByUser,
+    (state: RootState) => state.auth.user?.email],
+    (favoritesByUser, userEmail) => favoritesByUser[userEmail || ''] || []
+);
 
 function Header() {
     const { user } = useSelector((state: RootState) => state.auth);
     const dispatch = useDispatch(); 
     const [searchValue, setSearchValue] = useState('');
     const navigate = useNavigate();
+    const userFavorites = useSelector(selectUserFavorites);
+
     const items: MenuProps['items'] = [
         {
             key: '1',
@@ -35,14 +44,14 @@ function Header() {
         {
             title: (
                 <NavLink to="/" end>
-                    <HomeOutlined style={{ fontSize: '16px', color: 'black' }} />&nbsp; Home &nbsp;
+                    <HomeOutlined style={{ fontSize: '16px', color: 'white' }} />&nbsp; Home &nbsp;
                 </NavLink>
             ),
         },
         {
             title: (
                 <NavLink to="/favorites" end>
-                    <HeartOutlined style={{ fontSize: '16px', color: 'black' }} />&nbsp; Favorites &nbsp;
+                    <HeartOutlined style={{ fontSize: '16px', color: 'white' }} />&nbsp; Favorites {userFavorites.length} &nbsp;
                 </NavLink>
             ),
         },
@@ -51,7 +60,7 @@ function Header() {
                 <Dropdown menu={{ items }}>
                     <a onClick={(e) => e.preventDefault()}>
                         <Space>
-                            <UserOutlined style={{ fontSize: '16px', color: 'black', cursor: 'pointer' }} />
+                            <UserOutlined style={{ fontSize: '16px', color: 'white', cursor: 'pointer' }} />
                             <span style={{ cursor: 'pointer' }}>{user?.email}</span>
                             <DownOutlined />
                         </Space>
