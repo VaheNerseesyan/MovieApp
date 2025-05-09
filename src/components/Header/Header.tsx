@@ -80,7 +80,7 @@ function Header() {
             alignItems: 'center', 
             position: 'fixed', 
             width: '100%',
-            bottom: 720,
+            bottom: '92%',
             top: 0, 
             left: 0, 
             right: 0, 
