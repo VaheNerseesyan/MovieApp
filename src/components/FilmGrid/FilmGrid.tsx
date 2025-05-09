@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { getFilm, getMovieActors, getMovieBackdrops } from "../api/MovieApi";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect} from "react";
 import { Button, Card, Carousel, Empty, Rate, Spin } from "antd";
 import { HeartOutlined, HeartFilled, LoadingOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
