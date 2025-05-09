@@ -13,7 +13,8 @@ const Favorites = () => {
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-                minHeight: '50vh'
+                minHeight: '100vh',
+                background: `url(${background})`,
             }}>
                 <Empty
                     description="No favorite movies yet"
@@ -25,7 +26,7 @@ const Favorites = () => {
 
     return (
         <div style={{ background: `url(${background})`, marginTop: -20 }}>
-            <h2 style={{ textAlign: 'center', color: 'white', paddingTop: 80 }}>Favorite Movies</h2>
+            <h2 style={{ textAlign: 'center', color: 'white',  }}>Favorite Movies</h2>
             <div style={{
                 display: 'grid',
                 gap: '24px'

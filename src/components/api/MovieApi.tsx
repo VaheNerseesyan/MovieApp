@@ -38,6 +38,12 @@ const getPopularMovies = async () => {
         .catch(err => console.error(err));
 }
 
+const getMovieVideos = async (id: string) => {
+    return fetch(`https://api.themoviedb.org/3/movie/${id}/videos?`, options)
+    .then(res => res.json())
+    .then(res => res.results)
+    .catch(err => console.error(err));
+}
 
+export { getFilm, MovieApi, getFilmByTitle, getPopularMovies, getMovieVideos }; 
 
-export { getFilm, MovieApi, getFilmByTitle, getPopularMovies }; 
