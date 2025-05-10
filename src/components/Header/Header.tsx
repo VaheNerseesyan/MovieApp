@@ -93,7 +93,7 @@ function Header() {
             </nav>
 
             <Search
-                style={{ width: '300px', marginLeft: 20 }}
+                style={{ width: '300px', marginLeft: '100vh' }}
                 placeholder="Search By Title"
                 onSearch={handleSearch}
                 value={searchValue}
