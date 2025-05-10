@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { getFilm, getMovieActors, getMovieBackdrops } from "../api/MovieApi";
 import { useState, useEffect } from "react";
 import { Button, Card, Carousel, Empty, Rate, Spin } from "antd";
@@ -26,6 +26,15 @@ function FilmGrid() {
     const [videos, setVideos] = useState<any>(null);
     const [backdrops, setBackdrops] = useState<any>(null);
     const [actors, setActors] = useState<any>([]);
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (isNaN(Number(id))) {
+            navigate('/pageNotFound');
+        } else {
+            navigate(`/movie/${id}`);
+        }
+    }, [])
 
     const handleFavoriteClick = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -102,7 +111,7 @@ function FilmGrid() {
                                     />
                                 }
                                 <div style={{ color: 'white', width: '60%', display: 'flex', flexDirection: 'column' }}>
-                                    <h1 style={{ color: 'white' }}>{film?.title} &nbsp;<h5 style={{ color: 'gray', display: 'inline' }}>({film?.original_title})</h5></h1>
+                                    <h1 style={{ color: 'white' }}>{film?.original_title}</h1>
                                     {videos?.length > 0 ? (
                                         <iframe style={{
                                             width: "550px",
