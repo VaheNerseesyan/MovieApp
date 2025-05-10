@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../app/store';
@@ -71,7 +70,9 @@ function Header() {
     ];
 
     const handleSearch = (value: string) => {
-        navigate(`/search/${value}/page/1`);
+        if (searchValue) {
+            navigate(`/search/${value}/page/1`);
+        }
     }
 
     return (

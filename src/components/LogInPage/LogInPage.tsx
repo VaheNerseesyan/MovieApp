@@ -5,7 +5,6 @@ import { useEffect, useState, FormEvent } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../features/logedIn/LogedInSlice";
 import { RootState } from "../../app/store";
-import 'antd/dist/reset.css';
 import { Input, Button, Card } from 'antd';
 import { useMessageApi } from "../../utils/MessageContext";
 
