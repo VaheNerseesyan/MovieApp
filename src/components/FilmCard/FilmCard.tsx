@@ -64,6 +64,7 @@ function FilmCard({ title, poster_path, overview, vote_average, release_date, id
                 margin: '20px',
                 border: '1px solid #adadad'
             }}
+            onClick={() => navigate(`/movie/${id}`)}
             cover={poster_path ? 
                 <img
                     src={`https://image.tmdb.org/t/p/original/${poster_path}`}

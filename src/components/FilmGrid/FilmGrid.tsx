@@ -186,7 +186,7 @@ function FilmGrid() {
                                 }}
                                 autoplay
                                 autoplaySpeed={2000}
-                                dots={false}
+                                dots={true}
                                 dotPosition="bottom"
                                 slidesToShow={6}
                                 infinite={true}
