@@ -94,7 +94,7 @@ function FilmGrid() {
                                 style={{ marginTop: '50px', color: 'white', backgroundColor: 'transparent', border: '1.5px solid white', maxWidth: '250px' }}
                                 key="back"
                                 type="text"
-                                onClick={() => navigate('/')}
+                                onClick={() => navigate(-1)}
                             >
                                 Go Back
                             </Button>
