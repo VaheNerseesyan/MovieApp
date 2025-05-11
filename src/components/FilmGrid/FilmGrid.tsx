@@ -31,9 +31,7 @@ function FilmGrid() {
     useEffect(() => {
         if (isNaN(Number(id))) {
             navigate('/pageNotFound');
-        } else {
-            navigate(`/movie/${id}`);
-        }
+        } 
     }, [])
 
     const handleFavoriteClick = (e: React.MouseEvent) => {

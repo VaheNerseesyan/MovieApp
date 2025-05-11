@@ -15,6 +15,7 @@ interface Movie {
     release_date: string;
 }
 
+
 const selectUserFavorites = createSelector(
     [(state: RootState) => state.favorites.favoritesByUser, 
      (state: RootState) => state.auth.user?.email],
@@ -28,6 +29,9 @@ function FilmCard({ title, poster_path, overview, vote_average, release_date, id
     const userFavorites = useSelector(selectUserFavorites);
     const isFavorite = userFavorites.some((fav: any) => Number(fav.id) === Number(id));
 
+    const handleCardClick = () => {
+        navigate(`/movie/${id}`);
+    };
     const handleFavoriteClick = (e: React.MouseEvent) => {
         e.stopPropagation();
         if (isFavorite) {
@@ -64,7 +68,7 @@ function FilmCard({ title, poster_path, overview, vote_average, release_date, id
                 margin: '20px',
                 border: '1px solid #adadad'
             }}
-            onClick={() => navigate(`/movie/${id}`)}
+            onClick={handleCardClick}
             cover={poster_path ? 
                 <img
                     src={`https://image.tmdb.org/t/p/original/${poster_path}`}
