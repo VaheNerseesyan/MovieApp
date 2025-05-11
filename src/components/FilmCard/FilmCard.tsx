@@ -69,7 +69,6 @@ function FilmCard({ title, poster_path, overview, vote_average, release_date, id
                 <img
                     src={`https://image.tmdb.org/t/p/original/${poster_path}`}
                     style={{ height: '100%', objectFit: 'cover', width: '300px' }}
-                    onClick={() => navigate(`/movie/${id}`)}
                 /> : 
                 <Empty
                     style={{ height: '100%', objectFit: 'cover', width: '300px' }}
