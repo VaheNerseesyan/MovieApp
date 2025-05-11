@@ -62,7 +62,7 @@ function SearchedMovies() {
                 <div>
                     <h2 style={{ textAlign: 'center', color: 'white', paddingTop: 80 }}>Searched results for '{title}'</h2>
                     {isLoading && <Spin indicator={<LoadingOutlined style={{ fontSize: 48, color: 'white', left: '50vw' }} spin />} />}
-                    {!isLoading && searchResults.length === 0 && (
+                    {!isLoading && searchResults?.length && (
                         <p style={{ textAlign: 'center', color: 'white' }}>
                             No results found. Redirecting back...
                         </p>
