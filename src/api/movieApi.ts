@@ -9,7 +9,7 @@ const options = {
     total_results: 0,
 };
 
-const MovieApi = (page: number) => fetch(`https://api.themoviedb.org/3/discover/movie?language=en-US&page=${page}`, options)
+const moviesApi = (page: number) => fetch(`https://api.themoviedb.org/3/discover/movie?language=en-US&page=${page}`, options)
     .then(res => res.json())
     .then(res => res.results)
     .catch(err => console.error(err));
@@ -61,5 +61,5 @@ const getMovieActors = async (id: string) => {
         .catch(err => console.error(err));
 };
 
-export { getFilm, MovieApi, getFilmByTitle, getPopularMovies, getMovieVideos, getMovieBackdrops, getMovieActors };
+export { getFilm, moviesApi, getFilmByTitle, getPopularMovies, getMovieVideos, getMovieBackdrops, getMovieActors };
 

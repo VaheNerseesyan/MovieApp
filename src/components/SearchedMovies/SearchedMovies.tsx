@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import background from '../../assets/Background.png';
 import { useState } from "react";
-import { getFilmByTitle } from "../api/MovieApi";
+import { getFilmByTitle } from "../../api/movieApi";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Pagination, Row, Spin, Flex } from "antd";

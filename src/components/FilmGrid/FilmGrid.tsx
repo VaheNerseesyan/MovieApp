@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router-dom";
-import { getFilm, getMovieActors, getMovieBackdrops } from "../api/MovieApi";
+import { getFilm, getMovieActors, getMovieBackdrops } from "../../api/movieApi";
 import { useState, useEffect } from "react";
 import { Button, Card, Carousel, Empty, Rate, Spin } from "antd";
 import { HeartOutlined, HeartFilled, LoadingOutlined } from '@ant-design/icons';
@@ -8,7 +8,7 @@ import { RootState } from '../../app/store';
 import { createSelector } from '@reduxjs/toolkit';
 import { addToFavorites, removeFromFavorites } from '../../features/favorites/favoritesSlice';
 import background from '../../assets/Background.png';
-import { getMovieVideos } from '../api/MovieApi';
+import { getMovieVideos } from '../../api/movieApi';
 
 const selectUserFavorites = createSelector(
     [(state: RootState) => state.favorites.favoritesByUser,

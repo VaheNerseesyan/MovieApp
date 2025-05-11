@@ -1,5 +1,5 @@
 import { useEffect, useState, memo } from "react";
-import { MovieApi, getPopularMovies } from "../api/MovieApi";
+import { moviesApi, getPopularMovies } from "../../api/movieApi";
 import FilmCard from "../FilmCard/FilmCard";
 import { Pagination, Row, Carousel, Spin } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
@@ -24,7 +24,7 @@ function HomePage() {
     }, [pageid])
 
     useEffect(() => {
-        MovieApi(Number(currentPage)).then(res => setMovies(res));
+        moviesApi(Number(currentPage)).then(res => setMovies(res));
     }, [currentPage]);
 
     const changePage = (pageid: number) => {
