@@ -18,7 +18,7 @@ const selectUserFavorites = createSelector(
 
 function FilmGrid() {
     const { id } = useParams();
-    const [film, setFilm] = useState<any>([]);
+    const [film, setFilm] = useState<any>(null);
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.auth.user);
     const userFavorites = useSelector(selectUserFavorites);
@@ -86,7 +86,7 @@ function FilmGrid() {
         <>
             <div key={id}>
                 <Card style={{ background: `url(${background})` }}>
-                    {film.length === 0 ? <Spin indicator={<LoadingOutlined style={{ fontSize: 48, color: 'white', left: '50vw', top: '50vh' }} spin />} /> :
+                    {!film ? <Spin indicator={<LoadingOutlined style={{ fontSize: 48, color: 'white', left: '50vw', top: '50vh' }} spin />} /> :
                         <>
                             <Button
                                 style={{ marginTop: '50px', color: 'white', backgroundColor: 'transparent', border: '1.5px solid white', maxWidth: '250px' }}
