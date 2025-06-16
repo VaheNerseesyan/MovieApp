@@ -10,7 +10,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import { useMessageApi } from "../../utils/MessageContext";
 
 function SearchedMovies() {
-    const [searchResults, setSearchResults] = useState([]);
+    const [searchResults, setSearchResults] = useState<any[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalResults, setTotalResults] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
@@ -30,16 +30,28 @@ function SearchedMovies() {
         if (title) {
             setIsLoading(true);
             getFilmByTitle(title, currentPage).then(res => {
-                setSearchResults(res[0]);
-                setTotalResults(res[1]);
-                setIsLoading(false);
+                if (res && Array.isArray(res) && res.length >= 2) {
+                    setSearchResults(res[0] || []);
+                    setTotalResults(res[1] || 0);
+                    setIsLoading(false);
 
-                if (res[0].length === 0) {
-                    warning("Empty search results")
-                    setTimeout(() => {
-                        navigate(-1);
-                    }, 1000);
+                    if (!res[0] || res[0].length === 0) {
+                        warning("No results found");
+                        setTimeout(() => {
+                            navigate(-1);
+                        }, 1000);
+                    }
+                } else {
+                    setSearchResults([]);
+                    setTotalResults(0);
+                    setIsLoading(false);
+                    warning("Error loading results");
                 }
+            }).catch(() => {
+                setSearchResults([]);
+                setTotalResults(0);
+                setIsLoading(false);
+                warning("Error loading results");
             });
         }
     }, [title, pageid]);
@@ -62,7 +74,7 @@ function SearchedMovies() {
                 <div>
                     <h2 style={{ textAlign: 'center', color: 'white', paddingTop: 80 }}>Searched results for '{title}'</h2>
                     {isLoading && <Spin indicator={<LoadingOutlined style={{ fontSize: 48, color: 'white', left: '50vw' }} spin />} />}
-                    {!isLoading && searchResults?.length && (
+                    {!isLoading && (!searchResults || searchResults.length === 0) && (
                         <p style={{ textAlign: 'center', color: 'white' }}>
                             No results found. Redirecting back...
                         </p>
