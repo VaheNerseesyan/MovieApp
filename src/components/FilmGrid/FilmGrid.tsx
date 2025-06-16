@@ -58,28 +58,24 @@ function FilmGrid() {
 
     useEffect(() => {
         if (id) {
-            getFilm(id).then(res => {
-                setFilm(res)
-            })
-            getMovieVideos(id).then(res => {
-                setVideos(res)
-            })
+            Promise.all([
+                getFilm(id),
+                getMovieVideos(id),
+                getMovieBackdrops(id),
+                getMovieActors(id)
+            ]).then(([filmRes, videosRes, backdropsRes, actorsRes]) => {
+                setFilm(filmRes || null);
+                setVideos(videosRes || null);
+                setBackdrops(backdropsRes || null);
+                setActors(actorsRes || []);
+            }).catch(() => {
+                navigate('/pageNotFound');
+            });
         }
-    }, [id]);
+    }, [id, navigate]);
 
     useEffect(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' })
-    }, [])
-
-    useEffect(() => {
-        if (id) {
-            getMovieBackdrops(id).then(res => {
-                setBackdrops(res)
-            })
-            getMovieActors(id).then(res => {
-                setActors(res)
-            })
-        }
     }, [])
 
     return (

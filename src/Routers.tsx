@@ -8,18 +8,23 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import FilmGrid from "./components/FilmGrid/FilmGrid";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
 import SearchedMovies from "./components/SearchedMovies/SearchedMovies";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
+
 const router = createBrowserRouter([
     {
         path: "/login",
         element: <LogInPage />,
+        errorElement: <ErrorBoundary />
     },
     {
         path: "/register",
         element: <RegisterPage />,
+        errorElement: <ErrorBoundary />
     },
     {
         path: "/",
         element: <ProtectedRoute><Layout /></ProtectedRoute>,
+        errorElement: <ErrorBoundary />,
         children: [
             {
                 path: "/",
